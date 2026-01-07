@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Azam</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ecf0f3;
+            margin: 0; padding: 0; color: #333;
+            padding-bottom: 70px;
+        }
+
+        h1.main-title {
+            text-align: center; color: #1e2a36; margin: 30px 0 20px 0;
+            text-transform: uppercase; letter-spacing: 4px;
+            font-weight: 900; font-size: 3rem;
+        }
+
+        .time-date-container {
+            width: 800px; margin: 15px auto;
+            display: flex; justify-content: space-between; gap: 15px;
+        }
+
+        .time-box, .date-box {
+            background: #ffffff; padding: 10px 20px; border-radius: 12px;
+            color: #1e2a36; font-weight: bold; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 48%;
+            border-left: 5px solid #3498db;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            background: #1e2a36; width: 800px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin: 0 auto; padding: 8px 15px; border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        nav a {
+            color: #cfd8dc; text-decoration: none; padding: 10px 20px;
+            border-radius: 50px; font-size: 14px; transition: all 0.3s ease;
+        }
+
+        nav a:hover { background: #37474f; color: white; }
+
+        nav a[href="about me.html"] {
+            background: #3498db; color: white; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* ===== CONTENT CARD (YANG KITA UBAH) ===== */
+        .content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 1000px;
+            
+            
+            margin: 40px auto;
+            
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            color: #2c3e50;
+            
+            /* Animation */
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content h2 {
+            text-align: center; color: #1e2a36; font-weight: 800;
+            font-size: 2.5rem; margin-top: 0;
+        }
+
+        .subtitle {
+            text-align: center; color: #7f8c8d; margin-bottom: 45px;
+            font-style: italic; font-size: 1.1rem;
+        }
+
+        /* ===== ABOUT MAIN ===== */
+        .about-main {
+            display: grid; grid-template-columns: 220px 1fr; gap: 50px;
+            align-items: center; margin-bottom: 40px; border-bottom: 1px solid #eee;
+            padding-bottom: 40px;
+        }
+
+        .about-pic {
+            width: 200px; height: 200px; border-radius: 50%; object-fit: cover;
+            border: 6px solid #3498db; display: block; margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: 0.4s;
+        }
+
+        .about-pic:hover { transform: scale(1.05); border-color: #1e2a36; }
+
+        .about-text h3 { margin-top: 0; color: #1e2a36; font-size: 26px; font-weight: bold; }
+        .about-text p { line-height: 1.8; color: #546e7a; margin-bottom: 15px; font-size: 16px; }
+
+        /* ===== INFO GRID ===== */
+        .about-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px; margin-top: 35px;
+        }
+
+        .about-box {
+            background: #f8f9fa; padding: 25px; border-radius: 15px;
+            border-top: 5px solid #3498db; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center; transition: all 0.4s ease;
+        }
+
+        .about-box:hover {
+            transform: translateY(-8px); background: #ffffff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-box h4 { margin-bottom: 10px; color: #1e2a36; font-weight: bold; }
+        .about-box p { color: #546e7a; font-size: 0.95em; }
+
+        /* ===== QUOTE ===== */
+        .about-quote {
+            margin-top: 55px; padding: 40px; text-align: center;
+            font-style: italic; font-size: 18px; background: #e1f5fe;
+            border-radius: 15px; color: #0277bd; position: relative;
+        }
+
+        .about-quote::before {
+            content: "“"; font-size: 80px; color: #3498db;
+            position: absolute; top: -30px; left: 20px; opacity: 0.3;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1e2a36; color: #cfd8dc; text-align: center;
+            padding: 10px 0; position: fixed; bottom: 0; width: 100%;
+            font-size: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;
+        }
+        .footer p { margin: 0; }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            nav { width: 90%; flex-wrap: wrap; justify-content: center; }
+            .time-date-container { width: 90%; }
+            .about-main { grid-template-columns: 1fr; text-align: center; }
+            .about-pic { width: 150px; height: 150px; }
+            .content { margin: 30px auto; width: 85%; padding: 30px; } /* Jarak mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">AZAM PERSONAL WEBSITE</h1>
+
+    <div class="time-date-container">
+        <div class="time-box" id="malaysia-time">--:--:--</div>
+        <div class="date-box" id="malaysia-date">--/--/--</div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about me.html">About Me</a>
+        <a href="family.html">Family</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="friends.html">Friends</a>
+        <a href="favourites.html">Favourites</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="content">
+        <h2>ABOUT ME</h2>
+        <p class="subtitle">
+            A brief introduction to who I am, my interests, and what drives me forward.
+        </p>
+
+        <div class="about-main">
+            <img src="image/azam.jpeg" class="about-pic" alt="Azam Profile">
+
+            <div class="about-text">
+                <h3>Hello, I’m Muhammad Azam Azeril Bin Azahar</h3>
+                <p>
+                    I’m 20 years old and standing at 172 cm.<br>
+                    I’m originally from Bertam, Pulau Pinang.<br>
+                    I'm the third child in my family.
+                </p>
+                <p>
+                    Currently pursuing my studies while actively participating in sports.
+                    I believe in balancing academic excellence with physical and mental.
+                </p>
+            </div>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-box">
+                <h4>Fun Facts</h4>
+                <p>Active in organization, Mirror Selfie Addict, Love Sport</p>
+            </div>
+
+            <div class="about-box">
+                <h4>Interests</h4>
+                <p>Sports, Creativity, Personal Growth</p>
+            </div>
+
+            <div class="about-box">
+                <h4>Strengths</h4>
+                <p>Loyal, Discipline, Adaptability, Teamwork</p>
+            </div>
+
+            <div class="about-box">
+                <h4>Values</h4>
+                <p>Consistency, Respect, Continuous Improvement</p>
+            </div>
+        </div>
+
+        <div class="about-quote">
+            <p>
+                “Be consistent, stay humble, and always strive to become better than yesterday.”
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 This Website is for personal education purposes only | Muhammad Azam Azeril Bin Azahar</p>
+    </footer>
+
+    <script>
+        function updateMalaysiaTimeDate() {
+            const optionsTime = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const optionsDate = { timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            
+            const now = new Date();
+            document.getElementById('malaysia-time').textContent = now.toLocaleTimeString('en-GB', optionsTime);
+            document.getElementById('malaysia-date').textContent = now.toLocaleDateString('en-GB', optionsDate);
+        }
+        setInterval(updateMalaysiaTimeDate, 1000);
+        updateMalaysiaTimeDate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Azam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+       
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ecf0f3;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e2a36;
+            margin: 30px 0 20px 0; 
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-size: 3rem;
+        }
+
+       
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-pop {
+            opacity: 0; 
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; } 
+        .delay-2 { animation-delay: 0.2s; } 
+        .delay-3 { animation-delay: 0.4s; } 
+
+        nav {
+            background: #1e2a36;
+            width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            padding: 8px 15px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        nav > a {
+            color: #cfd8dc;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        nav > a:hover {
+            background: #37474f;
+            color: white;
+        }
+
+        nav a[href="gallery.html"] {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .page-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 40px auto 20px auto;
+            padding: 0 20px;
+        }
+
+        .page-header h2 {
+            color: #1e2a36;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #546e7a;
+            font-size: 1.1rem;
+            font-style: italic;
+            background: white;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+       
+        .filter-container {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #546e7a;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        
+        .gallery-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-card {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            height: 320px; /* Tinggi Tetap */
+            display: flex; 
+        }
+
+       
+        .gallery-card img, 
+        .gallery-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 1;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 5;
+        }
+
+        .gallery-card:hover img,
+        .gallery-card:hover video {
+            transform: scale(1.1); /* Zoom effect */
+            opacity: 0.7; /* Gelapkan sikit */
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            transform: translateY(100%); /* Sorok bawah */
+            transition: transform 0.4s ease;
+            opacity: 0;
+        }
+
+        .gallery-card:hover .caption {
+            transform: translateY(0); /* Naik atas */
+            opacity: 1;
+        }
+
+      
+        .video-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+
+      
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 42, 54, 0.98);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup:target {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup img, .popup video {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            border: 2px solid #333;
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 40px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .close:hover { color: #3498db; }
+
+       
+        .time-date-container {
+            width: 800px;
+            margin: 15px auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .time-box, .date-box {
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 12px;
+            color: #1e2a36;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 48%;
+            border-left: 5px solid #3498db;
+        }
+
+        .footer {
+            background: #1e2a36;
+            color: #cfd8dc;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .footer p { margin: 0; }
+
+        @media (max-width: 850px) {
+            nav { width: 90%; flex-wrap: wrap; justify-content: center; }
+            .time-date-container { width: 90%; }
+            h1 { font-size: 2rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .gallery-card { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AZAM PERSONAL WEBSITE</h1>
+
+    <div class="time-date-container">
+        <div class="time-box" id="malaysia-time">--:--:--</div>
+        <div class="date-box" id="malaysia-date">--/--/--</div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about me.html">About Me</a>
+        <a href="family.html">Family</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="friends.html">Friends</a>
+        <a href="favourites.html">Favourites</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="page-header animate-pop delay-1">
+        <h2>SNAPSHOTS OF LIFE</h2>
+        <p>"A picture says more than words. Telling my story in colors, smiles, and laughter."</p>
+    </div>
+
+    <div class="filter-container animate-pop delay-2">
+        <button class="filter-btn active" onclick="filterGallery('all', this)">All Moments</button>
+        <button class="filter-btn" onclick="filterGallery('uni', this)">University</button>
+        <button class="filter-btn" onclick="filterGallery('life', this)">Lifestyle</button>
+        <button class="filter-btn" onclick="filterGallery('memories', this)">Memories</button>
+    </div>
+
+    <div class="gallery-container animate-pop delay-3">
+        <div class="gallery-grid">
+
+            <a href="#img1" class="gallery-card uni">
+                <img src="image/mtexco.jpeg" alt="Semester 1">
+                <div class="caption">Mtexco Suksis 24/25</div>
+            </a>
+
+            <a href="#img2" class="gallery-card uni">
+                <img src="image/acah.jpeg" alt="Silat">
+                <div class="caption">Gaya Lebih</div>
+            </a>
+
+            <a href="#img3" class="gallery-card life">
+                <img src="image/jb2.jpeg" alt="Mirror Selfie">
+                <div class="caption">Style</div>
+            </a>
+
+            <a href="#img4" class="gallery-card life">
+                <img src="image/jb3.jpeg" alt="Port Dickson">
+                <div class="caption">Bekwoh</div>
+            </a>
+
+            <a href="#img5" class="gallery-card life">
+                <img src="image/hehe1.jpeg" alt="River">
+                <div class="caption">Tok Bali</div>
+            </a>
+
+            <a href="#vid1" class="gallery-card memories">
+                <span class="video-icon"><i class="fas fa-play"></i> Video</span>
+                <video src="video/aydan.mp4" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>
+                <div class="caption">Aydan action</div>
+            </a>
+
+            <a href="#img6" class="gallery-card life">
+                <img src="image/cec3.jpeg" alt="Filter">
+                <div class="caption">Finish JPJPP</div>
+            </a>
+
+            <a href="#img7" class="gallery-card life">
+                <img src="image/maroon.jpeg" alt="Filter 2">
+                <div class="caption">Buy Kemeja</div>
+            </a>
+
+            <a href="#img8" class="gallery-card memories">
+                <img src="image/denda.jpeg" alt="Botak">
+                <div class="caption">Denda</div>
+            </a>
+
+            <a href="#img10" class="gallery-card life">
+                <img src="image/huhu.jpeg" alt="Cow">
+                <div class="caption">Mirror Selfie</div>
+            </a>
+
+            <a href="#img9" class="gallery-card life">
+                <img src="image/hihi.jpeg" alt="Handstand">
+                <div class="caption">Stadium Johor Bharu</div>
+            </a>
+
+            <a href="#img11" class="gallery-card memories">
+                <img src="image/Stem2.jpeg" alt="Childhood">
+                <div class="caption">Champion Stemprenuer</div>
+            </a>
+
+            <a href="#img12" class="gallery-card uni">
+                <img src="image/PA.jpeg" alt="Study Group">
+                <div class="caption">With PA Madam Amira</div>
+            </a>
+
+            <a href="#img13" class="gallery-card uni">
+                <img src="image/silat.jpeg" alt="Library">
+                <div class="caption">Last Persembahan Fesko</div>
+            </a>
+
+            <a href="#img14" class="gallery-card uni">
+                <img src="image/m16.jpeg" alt="Presentation">
+                <div class="caption">First Menembak</div>
+            </a>
+
+            <a href="#img15" class="gallery-card uni">
+                <img src="image/machang.jpeg" alt="Cafe">
+                <div class="caption">Interview Library </div>
+            </a>
+
+            <a href="#img17" class="gallery-card memories">
+                <img src="image/bukit.jpeg" alt="Raya Memory">
+                <div class="caption">Bukit Kluang</div>
+            </a>
+
+            <a href="#img18" class="gallery-card memories">
+                <img src="image/majlis.jpeg" alt="School Trip">
+                <div class="caption">Penutup Etika</div>
+            </a>
+
+            <a href="#img19" class="gallery-card memories">
+                <img src="image/daging.jpeg" alt="Old Hobby">
+                <div class="caption">Potong Daging</div>
+            </a>
+
+            <a href="#img20" class="gallery-card memories">
+                <img src="image/rewang.jpeg" alt="Bestfriends">
+                <div class="caption">Rewang Raya </div>
+            </a>
+
+            <a href="#img21" class="gallery-card memories">
+                <img src="image/homestay.jpeg" alt="Random Nostalgia">
+                <div class="caption">Bonding Suksis</div>
+            </a>
+
+            <a href="#img22" class="gallery-card life">
+                <img src="image/selfie.jpeg" alt="New Lifestyle">
+                <div class="caption">Selfie</div>
+            </a>
+
+        
+        </div>
+    </div>
+
+    <div id="img1" class="popup"><a href="#" class="close">&times;</a><img src="image/mtexco.jpeg"></div>
+    <div id="img2" class="popup"><a href="#" class="close">&times;</a><img src="image/acah.jpeg"></div>
+    <div id="img3" class="popup"><a href="#" class="close">&times;</a><img src="image/jb2.jpeg"></div>
+    <div id="img4" class="popup"><a href="#" class="close">&times;</a><img src="image/jb3.jpeg"></div>
+    <div id="img5" class="popup"><a href="#" class="close">&times;</a><img src="image/hehe1.jpeg"></div>
+    
+    <div id="img6" class="popup"><a href="#" class="close">&times;</a><img src="image/cec3.jpeg"></div>
+    <div id="img7" class="popup"><a href="#" class="close">&times;</a><img src="image/maroon.jpeg"></div>
+    <div id="img8" class="popup"><a href="#" class="close">&times;</a><img src="image/denda.jpeg"></div>
+    
+    <div id="img10" class="popup"><a href="#" class="close">&times;</a><img src="image/huhu.jpeg"></div>
+    <div id="img9" class="popup"><a href="#" class="close">&times;</a><img src="image/hihi.jpeg"></div>
+    <div id="img11" class="popup"><a href="#" class="close">&times;</a><img src="image/Stem2.jpeg"></div>
+    
+    <div id="img12" class="popup"><a href="#" class="close">&times;</a><img src="image/PA.jpeg"></div>
+    <div id="img13" class="popup"><a href="#" class="close">&times;</a><img src="image/silat.jpeg"></div>
+    <div id="img14" class="popup"><a href="#" class="close">&times;</a><img src="image/m16.jpeg"></div>
+    <div id="img15" class="popup"><a href="#" class="close">&times;</a><img src="image/machang.jpeg"></div>
+    
+    <div id="img17" class="popup"><a href="#" class="close">&times;</a><img src="image/bukit.jpeg"></div>
+    <div id="img18" class="popup"><a href="#" class="close">&times;</a><img src="image/majlis.jpeg"></div>
+    <div id="img19" class="popup"><a href="#" class="close">&times;</a><img src="image/daging.jpeg"></div>
+    <div id="img20" class="popup"><a href="#" class="close">&times;</a><img src="image/rewang.jpeg"></div>
+    <div id="img21" class="popup"><a href="#" class="close">&times;</a><img src="image/homestay.jpeg"></div>
+
+    <div id="img22" class="popup"><a href="#" class="close">&times;</a><img src="image/selfie.jpeg"></div>
+
+    
+
+    <div id="vid1" class="popup">
+        <a href="#" class="close">&times;</a>
+        <video src="video/aydan.mp4" controls></video>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 This Website is for personal education purposes only | Muhammad Azam Azeril Bin Azahar</p>
+    </footer>
+
+    <script>
+       
+        function filterGallery(category, btnElement) {
+            const cards = document.querySelectorAll('.gallery-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            // Reset active button
+            if(btnElement) {
+                btns.forEach(btn => btn.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    if (card.classList.contains(category)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        
+        function updateMalaysiaTimeDate() {
+            const optionsTime = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const optionsDate = { timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const now = new Date();
+            document.getElementById('malaysia-time').textContent = now.toLocaleTimeString('en-GB', optionsTime);
+            document.getElementById('malaysia-date').textContent = now.toLocaleDateString('en-GB', optionsDate);
+        }
+        setInterval(updateMalaysiaTimeDate, 1000);
+        updateMalaysiaTimeDate();
+    </script>
+
+</body>
+</html>

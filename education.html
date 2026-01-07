@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - Azam</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+     
+        .grade-table {
+            width: 100%; border-collapse: collapse; margin: 20px 0;
+            font-size: 15px; overflow: hidden; border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        .grade-table th {
+            background-color: #1e2a36; color: white; text-align: center;
+            padding: 15px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .grade-table td {
+            padding: 15px; border-bottom: 1px solid #eee; text-align: center;
+            vertical-align: middle;
+        }
+        .grade-table tr:hover { background-color: #f1f8fc; }
+        
+        /* Highlight specific text */
+        abbr { text-decoration: none; border-bottom: 1px dotted #333; cursor: help; }
+        mark { background-color: #ffeaa7; padding: 2px 5px; border-radius: 4px; }
+        sup { color: #e74c3c; font-weight: bold; }
+
+        /* ==================== TIMELINE LIST (KEKAL) ==================== */
+        ol.timeline {
+            list-style: none; padding: 0; counter-reset: item;
+        }
+        ol.timeline li {
+            position: relative; margin-bottom: 30px; padding-left: 50px;
+        }
+        ol.timeline li::before {
+            content: counter(item); counter-increment: item;
+            position: absolute; left: 0; top: 0;
+            width: 35px; height: 35px; border-radius: 50%;
+            background: #3498db; color: white; text-align: center;
+            line-height: 35px; font-weight: bold;
+        }
+        ol.timeline h3 { margin: 0 0 5px 0; color: #1e2a36; }
+        ol.timeline span { color: #7f8c8d; font-size: 14px; font-style: italic; }
+
+        
+        .edu-container {
+            width: 90%; 
+            max-width: 1000px; 
+            
+            
+            margin: 40px auto; 
+            
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            
+            /* ANIMATION CODE */
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        h2 { color: #3498db; border-bottom: 3px solid #eee; padding-bottom: 10px; margin-top: 30px; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Mobile adjustment */
+        @media (max-width: 800px) {
+            .edu-container { padding: 20px; width: 85%; margin-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">AZAM PERSONAL WEBSITE</h1>
+
+    <div class="time-date-container">
+        <div class="time-box" id="malaysia-time">--:--:--</div>
+        <div class="date-box" id="malaysia-date">--/--/--</div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about me.html">About Me</a>
+        <a href="family.html">Family</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="friends.html">Friends</a>
+        <a href="favourites.html">Favourites</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="edu-container">
+        
+        <h2>My Educational Journey</h2>
+        <ol class="timeline">
+            <li>
+                <h3>Diploma in Information Management</h3>
+                <span><abbr title="Universiti Teknologi MARA">UiTM</abbr> Machang (2023 - Present)</span>
+                <p>Currently in <b>Semester 5</b> (Final Year). Focusing on Web Content Management & Project.</p>
+            </li>
+            <li>
+                <h3>Sijil Pelajaran Malaysia (SPM)</h3>
+                <span>SMK AL MASHOOR (L) (2018 - 2021)
+                    <p>SMK YAN (2022)</span>
+                <p>Achieved 5A's. Active in Uniform Club.</p>
+            </li>
+        </ol>
+
+        <br>
+
+        <h2>Academic Performance (Diploma)</h2>
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>Focus Subject</th>
+                    <th>GPA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" style="font-weight:bold; background:#ecf0f3;">Year 1</td>
+                    <td>Sem 1</td>
+                    <td>Intro to Info Management</td>
+                    <td>3.30</td>
+                </tr>
+                <tr>
+                    <td>Sem 2</td>
+                    <td>Organization of Information</td>
+                    <td>2.75</td>
+                </tr>
+                
+                <tr style="background:#e0e0e0; height: 5px;"><td colspan="4"></td></tr>
+
+                <tr>
+                    <td rowspan="2" style="font-weight:bold; background:#ecf0f3;">Year 2</td>
+                    <td>Sem 3</td>
+                    <td>Web Content Management</td>
+                    <td>2.72</td>
+                </tr>
+                <tr>
+                    <td>Sem 4</td>
+                    <td>System Analysis</td>
+                    <td>3.28</td>
+                </tr>
+
+                <tr style="background:#e0e0e0; height: 5px;"><td colspan="4"></td></tr>
+
+                <tr style="border-left: 5px solid #3498db;">
+                    <td style="font-weight:bold; background:#e3f2fd;">Year 3</td>
+                    <td style="font-weight:bold; color:#3498db;">Sem 5</td>
+                    <td><b>Individual Project (IMD318)</b></td>
+                    <td><mark>Target: 4.0</mark></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:right; font-weight:bold;">Current CGPA:</td>
+                    <td style="background:#3498db; color:white; font-weight:bold;">3.01</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <p style="text-align:center; margin-top:20px; color:#777; font-size:12px;">
+            *Note: <abbr title="Grade Point Average">GPA</abbr> is calculated based on credit hours per semester.
+        </p>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 This Website is for personal education purposes only | Muhammad Azam Azeril Bin Azahar</p>
+    </footer>
+
+   <script>
+        function updateMalaysiaTimeDate() {
+            const optionsTime = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const optionsDate = { timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const now = new Date();
+            document.getElementById('malaysia-time').textContent = now.toLocaleTimeString('en-GB', optionsTime);
+            document.getElementById('malaysia-date').textContent = now.toLocaleDateString('en-GB', optionsDate);
+        }
+        setInterval(updateMalaysiaTimeDate, 1000);
+        updateMalaysiaTimeDate();
+    </script>
+</body>
+</html>

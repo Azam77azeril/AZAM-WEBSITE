@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Azam Personal Website</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .hero {
+            opacity: 0; 
+            animation: fadeUp 0.8s ease forwards; 
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    </head>
+
+<body>
+
+    <h1 class="main-title">AZAM PERSONAL WEBSITE</h1>
+
+    <div class="time-date-container">
+        <div class="time-box" id="malaysia-time">--:--:--</div>
+        <div class="date-box" id="malaysia-date">--/--/--</div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about me.html">About Me</a>
+        <a href="family.html">Family</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="friends.html">Friends</a>
+        <a href="favourites.html">Favourites</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-text">
+            <p class="intro">HELLO, MY NAME IS</p>
+            <h1>AZAM</h1>
+            <span class="role">STUDENT • ATHLETE • ACTIVE</span>
+            <p class="desc">
+                A personal website showcasing my education journey,
+                experiences, interests, and growth in both academic
+                and personal life.
+            </p>
+            <a href="about me.html" class="hero-btn">ABOUT ME</a>
+            
+            <div class="social-inside">
+                <a href="https://www.instagram.com/azamazeril?igsh=bjRxODNlYnQ1dnh0&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/16sJdB4UcP/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@azmazrl?_r=1&_t=ZS-92oG9PMY8IR" target="_blank"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="image/hehe.jpeg" alt="Azam">
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 This Website is for personal education purposes only | Muhammad Azam Azeril Bin Azahar</p>
+    </footer>
+
+    <script>
+        function updateMalaysiaTimeDate() {
+            const optionsTime = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const optionsDate = { timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            
+            const now = new Date();
+            document.getElementById('malaysia-time').textContent = now.toLocaleTimeString('en-GB', optionsTime);
+            document.getElementById('malaysia-date').textContent = now.toLocaleDateString('en-GB', optionsDate);
+        }
+        setInterval(updateMalaysiaTimeDate, 1000);
+        updateMalaysiaTimeDate();
+    </script>
+
+</body>
+</html>

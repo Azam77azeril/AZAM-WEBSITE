@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites - Azam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ecf0f3;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            padding-bottom: 70px;
+        }
+
+        h1.main-title {
+            text-align: center;
+            color: #1e2a36;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-size: 3rem;
+        }
+
+      
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-pop {
+            opacity: 0; /* Mula-mula halimunan */
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        /* Delay supaya keluar berturutan */
+        .delay-1 { animation-delay: 0.1s; } /* Header keluar dulu */
+        .delay-2 { animation-delay: 0.3s; } /* Grid Card keluar second */
+
+        
+        nav {
+            background: #1e2a36;
+            width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            padding: 8px 15px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        nav > a {
+            color: #cfd8dc;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        nav > a:hover {
+            background: #37474f;
+            color: white;
+        }
+
+        nav a[href="favourites.html"] {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+       
+        .page-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-header h2 {
+            color: #1e2a36;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #546e7a;
+            font-size: 1.1rem;
+            font-style: italic;
+            background: white;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .fav-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 80px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px;
+        }
+
+       
+        .fav-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 350px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+            display: block; 
+            text-decoration: none;
+        }
+
+        a.fav-card {
+            cursor: pointer;
+        }
+
+        .fav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(52, 152, 219, 0.25);
+        }
+
+        .fav-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .fav-card:hover img {
+            transform: scale(1.1); 
+        }
+
+       
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .floating-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+  
+        .fav-info h3 {
+            color: #3498db;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+            font-weight: 800;
+        }
+
+        .fav-info h2 {
+            color: white;
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .fav-info p {
+            color: #cfd8dc;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+            opacity: 0.9;
+            transform: translateY(20px);
+            transition: 0.3s;
+        }
+        
+        .fav-card:hover .fav-info p {
+            color: white;
+        }
+
+     
+        .time-date-container {
+            width: 800px;
+            margin: 15px auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .time-box, .date-box {
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 12px;
+            color: #1e2a36;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 48%;
+            border-left: 5px solid #3498db;
+        }
+
+        .footer {
+            background: #1e2a36;
+            color: #cfd8dc;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .footer p { margin: 0; }
+        
+        @media (max-width: 800px) {
+            nav { width: 90%; flex-wrap: wrap; justify-content: center; }
+            .time-date-container { width: 90%; }
+            h1.main-title { font-size: 2rem; }
+            .fav-container { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">AZAM PERSONAL WEBSITE</h1>
+
+    <div class="time-date-container">
+        <div class="time-box" id="malaysia-time">--:--:--</div>
+        <div class="date-box" id="malaysia-date">--/--/--</div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about me.html">About Me</a>
+        <a href="family.html">Family</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="friends.html">Friends</a>
+        <a href="favourites.html">Favourites</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="page-header animate-pop delay-1">
+        <h2>THINGS I LOVE</h2>
+        <p>"A curated collection of my personal favourites. The things that fuel my days."</p>
+    </div>
+
+    <div class="fav-container animate-pop delay-2">
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-drumstick-bite"></i></div>
+            <img src="image/favfood.jpg" alt="Ayam Buttermilk">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Favourite Food</h3>
+                    <h2>Ayam Buttermilk</h2>
+                    <p>Creamy, spicy comfort food.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-mug-hot"></i></div>
+            <img src="image/blue.jpg" alt="Lemon">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Go-To Drink</h3>
+                    <h2>Blue Lemon</h2>
+                    <p>Cool and refreshing.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-user-ninja"></i></div>
+            <img src="image/paskal.jpg" alt="Paskal">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Favourite Movie</h3>
+                    <h2>Paskal</h2>
+                    <p>A film that highlights discipline, teamwork, patriotism, and brotherhood action scenes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-car-side"></i></div>
+            <img src="image/car.jpg" alt="McLaren">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Dream Machine</h3>
+                    <h2>McLaren</h2>
+                    <p>A symbol of ambition, speed, and success — a long-term dream pursued with determination.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-volleyball-ball"></i></div>
+            <img src="image/takraw.jpg" alt="Takraw">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Active Hobby</h3>
+                    <h2>Takraw</h2>
+                    <p>Fast, agile, and competitive.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://youtu.be/EfBpbOpZuPk?si=x1KAqz7QGySK3CbU" target="_blank" class="fav-card">
+            <div class="floating-icon"><i class="fas fa-film"></i></div>
+            <img src="image/conan.jpg" alt="Detective Conan">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Best Animation</h3>
+                    <h2>Detective Conan</h2>
+                    <p>Smart and mysterious.</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="https://youtu.be/g3ON3-PUIek?si=kMsOrZqFwkPYaJ1b" target="_blank" class="fav-card">
+            <div class="floating-icon"><i class="fas fa-music"></i></div>
+            <img src="image/lagu.jpg" alt="Song">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>Current Jam</h3>
+                    <h2>Kota ini Tak Sama Tanpamu</h2>
+                    <p>Emotional and nostalgic.</p>
+                </div>
+            </div>
+        </a>
+
+        <div class="fav-card">
+            <div class="floating-icon"><i class="fas fa-user-nurse"></i></div>
+            <img src="image/ayah1.jpeg" alt="Ayah">
+            <div class="card-overlay">
+                <div class="fav-info">
+                    <h3>My Hero</h3>
+                    <h2>My Father</h2>
+                    <p>My biggest inspiration comes from family, especially your father’s kindness, dedication, and values.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 This Website is for personal education purposes only | Muhammad Azam Azeril Bin Azahar</p>
+    </footer>
+
+    <script>
+        // Time & Date Script
+        function updateMalaysiaTimeDate() {
+            const optionsTime = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const optionsDate = { timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const now = new Date();
+            document.getElementById('malaysia-time').textContent = now.toLocaleTimeString('en-GB', optionsTime);
+            document.getElementById('malaysia-date').textContent = now.toLocaleDateString('en-GB', optionsDate);
+        }
+        setInterval(updateMalaysiaTimeDate, 1000);
+        updateMalaysiaTimeDate();
+    </script>
+
+</body>
+</html>
